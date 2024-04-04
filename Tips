@@ -1,0 +1,7 @@
+Create a new table from existing SQL table:
+
+SELECT [ID]
+      ,[NUM]
+      ,[SID]
+INTO [Database].[dbo].[TEST]
+FROM [Database].[dbo].[TEMP]
