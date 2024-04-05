@@ -1,7 +1,34 @@
-Create a new table from existing SQL table:
+1. Create a new table from existing SQL table:
 
-SELECT [ID]
-      ,[NUM]
-      ,[SID]
-INTO [Database].[dbo].[TEST]
-FROM [Database].[dbo].[TEMP]
+            SELECT [ID]
+                  ,[NUM]
+                  ,[SID]
+            INTO [Database].[dbo].[TEST]
+            FROM [Database].[dbo].[TEMP]
+
+2. Create a new table
+            USE [Database]
+            GO
+            
+            IF OBJECT_ID(N'Table_Name', N'U') IS NOT NULL  
+               DROP TABLE [dbo].[Table_Name];  
+            GO
+            CREATE TABLE Table_Name (
+                [ID] int NOT NULL PRIMARY KEY IDENTITY (1, 1),
+            	[NUM] [varchar](6) NULL,
+            	[SID] [bigint] NULL
+            );
+
+3. Different Convert/Cast for Date Time columns:
+            select CAST(GETDATE() as datetime) --> 2024-04-05 15:53:53.530
+            select CAST(GETDATE() as datetime2) --> 2024-04-05 15:53:53.5300000
+            SELECT CONVERT(VARCHAR(26), CAST(GETDATE() AS DATETIME2), 113) + ' AM' --> 05-Apr-24 03.53.53.5300000 PM
+            SELECT FORMAT(CAST(GETDATE() AS DATETIME2), N'dd-MMM-yy hh.mm.ss.fffffff tt') --> 05-Apr-24 03.53.53.5300000 PM
+
+4. Find duplicate rows:
+            SELECT NUM, SID, TYPE, FORMAT(CAST(TS_DATE AS DATETIME2), N'dd-MMM-yy hh.mm.ss.fffffff tt') AS TS_DATE, COUNT(*) as count  
+            FROM [Database].[dbo].[Table_Name]  
+            GROUP BY NUM, SID, TYPE, TS_DATE
+            HAVING COUNT(TS_DATE) > 1 
+
+5. 
