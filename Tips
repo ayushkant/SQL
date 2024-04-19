@@ -31,4 +31,12 @@
             GROUP BY NUM, SID, TYPE, TS_DATE
             HAVING COUNT(TS_DATE) > 1 
 
-5. 
+5. Add a new column in already existing Table:
+            ALTER TABLE [Table_Name]  
+            ADD <Column_Name> <DataType>VARCHAR(20) NULL;
+
+6. Update a table based on the condition from another table:
+            UPDATE table1  
+            SET table1.column_name = table2.column_name  
+            FROM table1  
+            JOIN table2 ON table1.join_column = table2.join_column;  
