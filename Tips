@@ -6,7 +6,11 @@
             INTO [Database].[dbo].[TEST]
             FROM [Database].[dbo].[TEMP]
 
-2. Create a new table
+2. Create a new table from the schema of existing SQL table , without copying rows:
+
+            SELECT * INTO new_table_name FROM existing_table_name WHERE 1 = 0;  
+
+3. Create a new table
             USE [Database]
             GO
             
@@ -19,23 +23,23 @@
             	[SID] [bigint] NULL
             );
 
-3. Different Convert/Cast for Date Time columns:
+4. Different Convert/Cast for Date Time columns:
             select CAST(GETDATE() as datetime) --> 2024-04-05 15:53:53.530
             select CAST(GETDATE() as datetime2) --> 2024-04-05 15:53:53.5300000
             SELECT CONVERT(VARCHAR(26), CAST(GETDATE() AS DATETIME2), 113) + ' AM' --> 05-Apr-24 03.53.53.5300000 PM
             SELECT FORMAT(CAST(GETDATE() AS DATETIME2), N'dd-MMM-yy hh.mm.ss.fffffff tt') --> 05-Apr-24 03.53.53.5300000 PM
 
-4. Find duplicate rows:
+5. Find duplicate rows:
             SELECT NUM, SID, TYPE, FORMAT(CAST(TS_DATE AS DATETIME2), N'dd-MMM-yy hh.mm.ss.fffffff tt') AS TS_DATE, COUNT(*) as count  
             FROM [Database].[dbo].[Table_Name]  
             GROUP BY NUM, SID, TYPE, TS_DATE
             HAVING COUNT(TS_DATE) > 1 
 
-5. Add a new column in already existing Table:
+6. Add a new column in already existing Table:
             ALTER TABLE [Table_Name]  
             ADD <Column_Name> <DataType>VARCHAR(20) NULL;
 
-6. Update a table based on the condition from another table:
+7. Update a table based on the condition from another table:
             UPDATE table1  
             SET table1.column_name = table2.column_name  
             FROM table1  
