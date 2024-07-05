@@ -44,3 +44,14 @@
             SET table1.column_name = table2.column_name  
             FROM table1  
             JOIN table2 ON table1.join_column = table2.join_column;  
+
+8. Update a Table based on another condition using WITH
+            WITH CTE AS (  
+              SELECT [Column1], [Column2], [Column3]  
+              FROM [SourceTable]  
+              WHERE [Condition]  
+            )  
+            UPDATE [TargetTable]  
+            SET [Column4] = [CTE].[Column1], [Column5] = [CTE].[Column2]  
+            FROM [TargetTable]  
+            INNER JOIN CTE ON [TargetTable].[Column3] = [CTE].[Column3]  
